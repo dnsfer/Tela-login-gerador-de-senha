@@ -127,9 +127,11 @@ copyPasswordButton.addEventListener("click", (e) => {
   navigator.clipboard.writeText(password).then(() => {
     showToast("Senha copiada com sucesso!");
 
+    generatedPasswordElement.style.display = "none"
+    generatorPasswordContainer.classList.add("hide")
     setTimeout(() => {
       copyPasswordButton.innerText = "Copiar";
-    }, 1000);
+    }, 1500);
   });
 });
 // Ativação do Medidor de Força na senha
