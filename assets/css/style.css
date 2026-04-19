@@ -232,3 +232,28 @@ input:focus {
 #toast.show {
   opacity: 1;
 }
+
+#password-strength {
+  height: 6px;
+  background-color: #ddd;
+  border-radius: 10px;
+  margin-top: .5rem;
+  overflow: hidden;
+}
+
+#strength-bar{
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  transition: width .4s ease, background-color .4s ease;
+}
+
+#strength-label{
+  font-size: .75rem;
+  font-weight: 600;
+  margin-top: .3rem;
+}
+
+#password-strength, #strength-label {
+  display: none;
+}

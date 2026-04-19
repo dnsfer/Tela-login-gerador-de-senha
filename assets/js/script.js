@@ -12,6 +12,9 @@ const lettersInput = document.querySelector("#letters");
 const numbersInput = document.querySelector("#number");
 const symbolsInput = document.querySelector("#symbols");
 const copyPasswordButton = document.querySelector("#copy-password");
+const confirmPasswordInput = document.querySelector("#confirmpassword");
+const strengthBar = document.querySelector("#strength-bar");
+const strengthLabel = document.querySelector("#strength-label");
 
 // Funções
 const getLetterLowerCase = () => {
@@ -77,12 +80,40 @@ const showToast = (message) => {
     toast.classList.remove("show");
   }, 1500);
 };
+// Medidor de Força na senha
+const checkStrength = (password) => {
+  let score = 0;
+
+  if (password.length >= 8) score++;
+  if (password.length >= 12) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[0-9]/.test(password)) score++;
+  if (/[^a-zA-Z0-9]/.test(password)) score++;
+
+  if (score <= 1) {
+    strengthBar.style.width = "25%";
+    strengthBar.style.backgroundColor = "#e74c3c";
+    strengthLabel.innerText = "Franca";
+    strengthLabel.style.color = "#e74c3c";
+  } else if (score <= 3) {
+    strengthBar.style.width = "60%";
+    strengthBar.style.backgroundColor = "#f39c12";
+    strengthLabel.innerText = "Média";
+    strengthLabel.style.color = "#f39c12";
+  } else {
+    strengthBar.style.width = "100%";
+    strengthBar.style.backgroundColor = "#2ecc71";
+    strengthLabel.innerText = "Forte";
+    strengthLabel.style.color = "#2ecc71";
+  }
+};
 // Eventos
 openCloseGeneratorButton.addEventListener("click", () => {
   generatorPasswordContainer.classList.toggle("hide");
   if (generatorPasswordContainer.classList.contains("hide")) {
     generatedPasswordElement.style.display = "none";
   }
+  
 });
 
 document
@@ -95,9 +126,20 @@ copyPasswordButton.addEventListener("click", (e) => {
 
   navigator.clipboard.writeText(password).then(() => {
     showToast("Senha copiada com sucesso!");
-    
+
     setTimeout(() => {
       copyPasswordButton.innerText = "Copiar";
     }, 1000);
   });
+});
+// Ativação do Medidor de Força na senha
+confirmPasswordInput.addEventListener("input", () => {
+  if (confirmPasswordInput.value.length > 0) {
+    strengthBar.closest("#password-strength").style.display = "block";
+    strengthLabel.style.display = "block";
+    checkStrength(confirmPasswordInput.value);
+  } else {
+    strengthBar.closest("#password-strength").style.display = "none";
+    strengthLabel.style.display = "none";
+  }
 });
