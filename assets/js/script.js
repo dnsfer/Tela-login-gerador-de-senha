@@ -113,7 +113,6 @@ openCloseGeneratorButton.addEventListener("click", () => {
   if (generatorPasswordContainer.classList.contains("hide")) {
     generatedPasswordElement.style.display = "none";
   }
-  
 });
 
 document
@@ -127,13 +126,14 @@ copyPasswordButton.addEventListener("click", (e) => {
   navigator.clipboard.writeText(password).then(() => {
     showToast("Senha copiada com sucesso!");
 
-    generatedPasswordElement.style.display = "none"
-    generatorPasswordContainer.classList.add("hide")
+    generatedPasswordElement.style.display = "none";
+    generatorPasswordContainer.classList.add("hide");
     setTimeout(() => {
       copyPasswordButton.innerText = "Copiar";
     }, 1500);
   });
 });
+
 // Ativação do Medidor de Força na senha
 confirmPasswordInput.addEventListener("input", () => {
   if (confirmPasswordInput.value.length > 0) {
@@ -144,4 +144,20 @@ confirmPasswordInput.addEventListener("input", () => {
     strengthBar.closest("#password-strength").style.display = "none";
     strengthLabel.style.display = "none";
   }
+});
+
+// Abertura e fechamento de olho na senha
+document.querySelectorAll(".toggle-password").forEach((icon) => {
+  icon.addEventListener("click", () => {
+    const targetId = icon.dataset.target;
+    const input = document.querySelector(`#${targetId}`);
+    const i = icon.querySelector("i");
+    if (input.type === "password") {
+      input.type = "text";
+      i.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+      input.type = "password";
+      i.classList.replace("fa-eye-slash", "fa-eye");
+    }
+  });
 });

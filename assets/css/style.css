@@ -257,3 +257,28 @@ input:focus {
 #password-strength, #strength-label {
   display: none;
 }
+
+/* Estilo dos olhos */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 2.5rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: .5rem;
+  cursor: pointer;
+  color: #1B5D74;
+  opacity: .6;
+  transition: opacity .3s ease;
+}
+
+.toggle-password:hover{
+  opacity: 1;
+}
